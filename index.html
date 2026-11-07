@@ -1,0 +1,390 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مخبز فلوري | Floury Bakery - صنعاء</title>
+    
+    <!-- 1. Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Tailwind Config (Must remain inline right after the CDN) -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Readex Pro"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#121212',       
+                            darker: '#0A0A0A',     
+                            cardDark: '#1C1C1C',   
+                            cream: '#fdfcf9',      
+                            surface: '#f5f2eb',    
+                            cardLight: '#ffffff',  
+                            olive: '#3e4130',      
+                            oliveLight: '#555942', 
+                            accent: '#c88647',     
+                            boxDark: '#111111',    
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'pulse-subtle': 'pulseSubtle 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulseSubtle: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.85' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="Style.css">
+
+    <!-- External JS Logic -->
+    <script src="Script.js" defer></script>
+</head>
+<body class="font-sans antialiased selection:bg-brand-olive selection:text-white bg-brand-cream text-brand-olive dark:bg-brand-dark dark:text-brand-cream overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 bg-brand-cream/80 dark:bg-brand-dark/80 backdrop-blur-md border-b border-brand-surface dark:border-white/5" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 md:py-4 flex justify-between items-center">
+            
+            <!-- Logo & Brand -->
+            <a href="#" class="flex items-center gap-3">
+                <img src="logo.png" alt="مخبز فلوري" class="h-14 sm:h-16 md:h-20 w-auto object-contain transition-all duration-300 dark:brightness-0 dark:invert">
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden md:flex items-center gap-8 text-base font-medium">
+                <a href="#" class="nav-link text-brand-olive dark:text-brand-cream hover:text-brand-accent dark:hover:text-brand-accent transition-colors">الرئيسية</a>
+                <a href="menu.html" class="nav-link text-brand-olive dark:text-brand-cream hover:text-brand-accent dark:hover:text-brand-accent transition-colors">قائمتنا</a>
+                <a href="#pos" class="nav-link text-brand-olive dark:text-brand-cream hover:text-brand-accent dark:hover:text-brand-accent transition-colors">نقاط البيع</a>
+            </div>
+
+            <!-- Actions & Mobile Menu Toggle -->
+            <div class="flex items-center gap-3 md:gap-4">
+                <!-- Theme Switcher Button -->
+                <button id="theme-toggle" type="button" aria-label="تبديل المظهر" class="p-2.5 sm:p-3 text-brand-olive dark:text-brand-cream bg-brand-surface dark:bg-brand-cardDark rounded-full text-base sm:text-lg hover:scale-105 active:scale-95 transition-all duration-300 shadow-sm border border-brand-olive/10 dark:border-white/10">
+                    <i id="theme-toggle-dark-icon" class="fa-solid fa-moon hidden transition-transform duration-500"></i>
+                    <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden transition-transform duration-500"></i>
+                </button>
+
+                <!-- WhatsApp CTA Button (Desktop) -->
+                <a href="https://wa.me/967784411559" target="_blank" class="hidden md:flex items-center gap-2 bg-brand-olive text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-brand-oliveLight transition-all duration-300 shadow-md">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>اطلب الآن</span>
+                </a>
+
+                <!-- Mobile Menu Hamburger Toggle -->
+                <button id="mobile-menu-btn" type="button" aria-label="فتح القائمة" class="md:hidden p-2.5 text-brand-olive dark:text-brand-cream bg-brand-surface dark:bg-brand-cardDark rounded-xl hover:bg-brand-olive/10 transition-colors border border-brand-olive/10 dark:border-white/10">
+                    <i id="menu-icon-open" class="fa-solid fa-bars text-xl"></i>
+                    <i id="menu-icon-close" class="fa-solid fa-xmark text-xl hidden"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-brand-surface dark:border-white/5 bg-brand-cream/95 dark:bg-brand-dark/95 backdrop-blur-lg px-6 py-6 transition-all duration-300 animate-fade-in">
+            <div class="flex flex-col gap-4 text-center text-lg font-medium">
+                <a href="#" class="mobile-nav-link py-2 text-brand-olive dark:text-brand-cream hover:text-brand-accent dark:hover:text-brand-accent transition-colors border-b border-brand-surface dark:border-white/5">الرئيسية</a>
+                <a href="menu.html" class="mobile-nav-link py-2 text-brand-olive dark:text-brand-cream hover:text-brand-accent dark:hover:text-brand-accent transition-colors border-b border-brand-surface dark:border-white/5">قائمتنا</a>
+                <a href="#pos" class="mobile-nav-link py-2 text-brand-olive dark:text-brand-cream hover:text-brand-accent dark:hover:text-brand-accent transition-colors border-b border-brand-surface dark:border-white/5">نقاط البيع</a>
+                
+                <a href="https://wa.me/967784411559" target="_blank" class="flex items-center justify-center gap-2 bg-brand-olive text-white py-3 rounded-full text-base font-semibold mt-2 shadow-md hover:bg-brand-oliveLight transition-colors">
+                    <i class="fa-brands fa-whatsapp text-xl"></i>
+                    <span>اطلب الآن عبر واتساب</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="fl-hero relative overflow-hidden">
+        <div class="fl-hero-orb fl-hero-orb-one"></div>
+        <div class="fl-hero-orb fl-hero-orb-two"></div>
+        <div class="fl-hero-inner relative z-10 max-w-7xl mx-auto px-5 sm:px-8">
+            <div class="fl-hero-copy text-center lg:text-right">
+                <span class="fl-eyebrow"><span class="fl-eyebrow-dot"></span> من قلب صنعاء، نخبز بحب</span>
+                <h1>لأن لحظاتكم<br class="hidden sm:block"> <span>تستحق الحلاوة</span></h1>
+                <p>من أول قطعة إلى آخر تفصيلة… نخبز بشغف ونقدّم لكم كيك ومعجنات تُصنع لتكون جزءاً من أجمل ذكرياتكم.</p>
+                <div class="fl-hero-actions">
+                    <a href="https://wa.me/967784411559" target="_blank" class="fl-primary-cta"><i class="fa-brands fa-whatsapp"></i><span>اطلبوا مناسبتكم</span><i class="fa-solid fa-arrow-left fl-cta-arrow"></i></a>
+                    <a href="menu.html" class="fl-secondary-cta">اكتشفوا القائمة <i class="fa-solid fa-arrow-left"></i></a>
+                </div>
+                <div class="fl-hero-note"><span></span> تفاصيل صغيرة… تصنع فرقاً كبيراً</div>
+            </div>
+            <div class="fl-hero-visual">
+                <div class="fl-hero-photo-wrap">
+                    <img src="main.jpg" alt="علبة تغليف فلوري الفاخرة تحمل هوية المخبز" class="fl-hero-photo">
+                    <div class="fl-photo-shade"></div>
+                    <div class="fl-photo-caption"><span class="fl-caption-mark">FB</span><div><small>FLOURRY BAKERY</small><strong>تجربة تبدأ من التفاصيل</strong></div></div>
+                    <div class="fl-photo-badge"><i class="fa-solid fa-star"></i><span>تغليف يليق بمناسباتكم</span></div>
+                </div>
+                <div class="fl-visual-index"><b>01</b><span></span><small>صُنع بحب في صنعاء</small></div>
+            </div>
+        </div>
+        <div class="fl-hero-bottom-line"><span>FLOURRY BAKERY</span><span>BAKED WITH LOVE · SANAA</span></div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-12 sm:py-16 md:py-20 relative z-10 bg-brand-cream dark:bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div class="bg-white dark:bg-brand-cardDark shadow-luxury p-8 sm:p-10 rounded-3xl text-center border border-brand-surface dark:border-white/5 hover-lift">
+                    <div class="w-16 h-16 mx-auto bg-brand-surface dark:bg-brand-olive/20 rounded-2xl flex items-center justify-center text-brand-accent dark:text-brand-cream mb-6">
+                        <i class="fa-solid fa-wheat-awn text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-olive dark:text-white mb-3">مكونات فاخرة</h3>
+                    <p class="text-brand-oliveLight dark:text-gray-400 text-sm leading-relaxed">نستخدم أجود أنواع الدقيق والشوكولاتة المستوردة لضمان جودة لا تضاهى في كل قضمة.</p>
+                </div>
+                <div class="bg-white dark:bg-brand-cardDark shadow-luxury p-8 sm:p-10 rounded-3xl text-center border border-brand-surface dark:border-white/5 hover-lift">
+                    <div class="w-16 h-16 mx-auto bg-brand-surface dark:bg-brand-olive/20 rounded-2xl flex items-center justify-center text-brand-accent dark:text-brand-cream mb-6">
+                        <i class="fa-solid fa-gem text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-olive dark:text-white mb-3">تصاميم حصرية</h3>
+                    <p class="text-brand-oliveLight dark:text-gray-400 text-sm leading-relaxed">فريقنا الفني يحول رؤيتكم إلى واقع ملموس، من الكيك الكلاسيكي إلى التصاميم العصرية.</p>
+                </div>
+                <div class="bg-white dark:bg-brand-cardDark shadow-luxury p-8 sm:p-10 rounded-3xl text-center border border-brand-surface dark:border-white/5 hover-lift sm:col-span-2 lg:col-span-1">
+                    <div class="w-16 h-16 mx-auto bg-brand-surface dark:bg-brand-olive/20 rounded-2xl flex items-center justify-center text-brand-accent dark:text-brand-cream mb-6">
+                        <i class="fa-solid fa-truck-fast text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-olive dark:text-white mb-3">توصيل للمناسبات</h3>
+                    <p class="text-brand-oliveLight dark:text-gray-400 text-sm leading-relaxed">خدمة توصيل احترافية داخل صنعاء لضمان وصول طلبكم في أبهى حلة وبأمان تام.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu / Showcase Section -->
+    <section id="menu" class="scroll-mt-20 py-16 sm:py-20 lg:py-24 relative bg-brand-surface dark:bg-brand-cardDark">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-12 sm:mb-16">
+                <span class="text-brand-accent dark:text-brand-oliveLight font-semibold tracking-[0.2em] uppercase text-xs sm:text-sm">قائمتنا المميزة</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-brand-olive dark:text-white mt-3 mb-4 sm:mb-6">إبداعات <span class="text-brand-oliveLight">فلوري</span></h2>
+                <div class="w-20 sm:w-24 h-[2px] bg-brand-accent dark:bg-brand-oliveLight mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div class="group relative rounded-3xl overflow-hidden shadow-luxury hover-lift aspect-[4/5] bg-white dark:bg-brand-dark dark:border dark:border-white/5">
+                    <img src="1.jpg" alt="مخبوزات طازجة" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 dark:opacity-75 dark:group-hover:opacity-95">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-boxDark/90 via-brand-boxDark/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 transform sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <span class="inline-block px-3 py-1 bg-white/20 dark:bg-brand-olive/80 backdrop-blur-md text-white text-xs rounded-full mb-3">طازج يومياً</span>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">كرواسون ومعجنات</h3>
+                        <p class="text-white/90 dark:text-gray-300 text-xs sm:text-sm sm:opacity-0 group-hover:opacity-100 transition-opacity duration-500">هشة، غنية بالزبدة، وتخبز يومياً لتجربة فطور لا تُنسى.</p>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-3xl overflow-hidden shadow-luxury hover-lift aspect-[4/5] bg-white dark:bg-brand-dark dark:border dark:border-white/5">
+                    <img src="2.jpg" alt="سندوتشات" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 dark:opacity-75 dark:group-hover:opacity-95">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-boxDark/90 via-brand-boxDark/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 transform sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <span class="inline-block px-3 py-1 bg-white/20 dark:bg-brand-olive/80 backdrop-blur-md text-white text-xs rounded-full mb-3">وجبات خفيفة</span>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">سندوتشات فاخرة</h3>
+                        <p class="text-white/90 dark:text-gray-300 text-xs sm:text-sm sm:opacity-0 group-hover:opacity-100 transition-opacity duration-500">محضرة بخبزنا الطازج مع أجود أنواع الأجبان واللحوم الباردة.</p>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-3xl overflow-hidden shadow-luxury hover-lift aspect-[4/5] md:col-span-2 lg:col-span-1 bg-white dark:bg-brand-dark dark:border dark:border-white/5">
+                    <img src="main.jpg" alt="تغليف راقي" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 dark:opacity-75 dark:group-hover:opacity-95">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-boxDark/90 via-brand-boxDark/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8 transform sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <span class="inline-block px-3 py-1 bg-brand-olive/80 backdrop-blur-md text-white text-xs rounded-full mb-3">الأعراس والمناسبات</span>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">تغليف يليق بكم</h3>
+                        <p class="text-white/90 dark:text-gray-300 text-xs sm:text-sm sm:opacity-0 group-hover:opacity-100 transition-opacity duration-500">نقدم طلبات المناسبات في صناديق فاخرة تعكس رقي ذوقكم.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 sm:mt-16">
+                <a href="https://wa.me/967784411559" target="_blank" class="inline-flex items-center gap-3 bg-brand-olive text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full text-base sm:text-lg font-bold hover:bg-brand-oliveLight transition-all duration-300 shadow-xl hover:-translate-y-1">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    <span>اطلب الآن لمناسبتك القادمة</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Points of Sale Section (نقاط البيع) -->
+    <section id="pos" class="scroll-mt-20 py-16 sm:py-20 lg:py-24 relative bg-brand-cream dark:bg-brand-dark border-t border-brand-surface dark:border-white/5">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-12 sm:mb-16">
+                <span class="text-brand-accent dark:text-brand-oliveLight font-semibold tracking-[0.2em] uppercase text-xs sm:text-sm">أماكن التواجد</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-brand-olive dark:text-white mt-3 mb-4 sm:mb-6">نقاط <span class="text-brand-oliveLight">البيع</span></h2>
+                <p class="text-brand-oliveLight dark:text-gray-400 max-w-xl mx-auto text-sm sm:text-base md:text-lg mb-6">تفضلوا بزيارة الفروع والمنافذ التالية للحصول على منتجات مخبز فلوري الطازجة</p>
+                <div class="w-20 sm:w-24 h-[2px] bg-brand-accent dark:bg-brand-oliveLight mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Point 1 -->
+                <div class="bg-white dark:bg-brand-cardDark p-6 sm:p-8 rounded-3xl shadow-luxury hover-lift border border-brand-surface dark:border-white/5 flex items-start gap-4 sm:gap-5">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand-surface dark:bg-brand-olive/20 text-brand-accent dark:text-brand-cream flex items-center justify-center text-xl sm:text-2xl shrink-0">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-brand-olive dark:text-white mb-1.5">قلص بن</h3>
+                        <p class="text-brand-oliveLight dark:text-gray-400 text-xs sm:text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-brand-accent dark:text-brand-oliveLight"></i>
+                            <span>شارع حدة</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Point 2 -->
+                <div class="bg-white dark:bg-brand-cardDark p-6 sm:p-8 rounded-3xl shadow-luxury hover-lift border border-brand-surface dark:border-white/5 flex items-start gap-4 sm:gap-5">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand-surface dark:bg-brand-olive/20 text-brand-accent dark:text-brand-cream flex items-center justify-center text-xl sm:text-2xl shrink-0">
+                        <i class="fa-solid fa-coffee"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-brand-olive dark:text-white mb-1.5">جبل بن</h3>
+                        <p class="text-brand-oliveLight dark:text-gray-400 text-xs sm:text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-brand-accent dark:text-brand-oliveLight"></i>
+                            <span>شارع حدة</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Point 3 -->
+                <div class="bg-white dark:bg-brand-cardDark p-6 sm:p-8 rounded-3xl shadow-luxury hover-lift border border-brand-surface dark:border-white/5 flex items-start gap-4 sm:gap-5">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand-surface dark:bg-brand-olive/20 text-brand-accent dark:text-brand-cream flex items-center justify-center text-xl sm:text-2xl shrink-0">
+                        <i class="fa-solid fa-moon"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-brand-olive dark:text-white mb-1.5">موكا نايت</h3>
+                        <p class="text-brand-oliveLight dark:text-gray-400 text-xs sm:text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-brand-accent dark:text-brand-oliveLight"></i>
+                            <span>جولة الرويشان</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Point 4 -->
+                <div class="bg-white dark:bg-brand-cardDark p-6 sm:p-8 rounded-3xl shadow-luxury hover-lift border border-brand-surface dark:border-white/5 flex items-start gap-4 sm:gap-5">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand-surface dark:bg-brand-olive/20 text-brand-accent dark:text-brand-cream flex items-center justify-center text-xl sm:text-2xl shrink-0">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-brand-olive dark:text-white mb-1.5">سوبر ماركت الهدى</h3>
+                        <p class="text-brand-oliveLight dark:text-gray-400 text-xs sm:text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-brand-accent dark:text-brand-oliveLight"></i>
+                            <span>شارع الزبيري</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Point 5 -->
+                <div class="bg-white dark:bg-brand-cardDark p-6 sm:p-8 rounded-3xl shadow-luxury hover-lift border border-brand-surface dark:border-white/5 flex items-start gap-4 sm:gap-5 sm:col-span-2 lg:col-span-1">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-brand-surface dark:bg-brand-olive/20 text-brand-accent dark:text-brand-cream flex items-center justify-center text-xl sm:text-2xl shrink-0">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-brand-olive dark:text-white mb-1.5">مول الشلال</h3>
+                        <p class="text-brand-oliveLight dark:text-gray-400 text-xs sm:text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-brand-accent dark:text-brand-oliveLight"></i>
+                            <span>الأصبحي</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-boxDark dark:bg-brand-darker text-white pt-16 sm:pt-20 pb-10 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full overflow-hidden leading-none">
+            <svg class="relative block w-[calc(110%+1.3px)] h-[30px] sm:h-[40px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-brand-cream dark:fill-brand-dark"></path>
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 mb-12 sm:mb-16">
+                <div class="text-center md:text-right">
+                    <div class="flex justify-center md:justify-start mb-6">
+                        <img src="logo.png" alt="مخبز فلوري" class="h-16 sm:h-20 w-auto object-contain brightness-0 invert opacity-90">
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm mx-auto md:mx-0">
+                        نصنع الحلويات بشغف وحرفية عالية. وجهتكم الأولى في صنعاء لطلبات المناسبات والأعراس.
+                    </p>
+                    <div class="flex justify-center md:justify-start gap-4">
+                        <a href="https://www.instagram.com/flourry_bakery7" target="_blank" aria-label="انستغرام" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brand-accent dark:hover:bg-brand-olive transition-all duration-300 text-gray-400 hover:text-white">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/FlourryBakery/" target="_blank" aria-label="فيسبوك" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brand-accent dark:hover:bg-brand-olive transition-all duration-300 text-gray-400 hover:text-white">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="https://wa.me/967784411559" target="_blank" aria-label="واتساب" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-brand-accent dark:hover:bg-brand-olive transition-all duration-300 text-gray-400 hover:text-white">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <h4 class="text-lg sm:text-xl font-bold mb-6 text-brand-cream">روابط سريعة</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-brand-accent dark:hover:text-white transition-colors">الرئيسية</a></li>
+                        <li><a href="menu.html" class="text-gray-400 hover:text-brand-accent dark:hover:text-white transition-colors">قائمتنا</a></li>
+                        <li><a href="#pos" class="text-gray-400 hover:text-brand-accent dark:hover:text-white transition-colors">نقاط البيع</a></li>
+                        <li><a href="https://wa.me/967784411559" target="_blank" class="text-gray-400 hover:text-brand-accent dark:hover:text-white transition-colors">طلبات الأعراس</a></li>
+                    </ul>
+                </div>
+
+                <div class="text-center md:text-left">
+                    <h4 class="text-lg sm:text-xl font-bold mb-6 text-brand-cream">تواصل معنا</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-center justify-center md:justify-start gap-3 text-gray-400" dir="ltr">
+                            <i class="fa-solid fa-location-dot text-brand-accent dark:text-brand-oliveLight"></i>
+                            <span>صنعاء - اليمن</span>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start gap-3 text-gray-400" dir="ltr">
+                            <i class="fa-solid fa-phone text-brand-accent dark:text-brand-oliveLight"></i>
+                            <a href="tel:00967784411559">+ 967 784 411 559</a>
+                        </li>
+                        <li class="flex items-center justify-center md:justify-start gap-3 text-gray-400" dir="ltr">
+                            <i class="fa-solid fa-envelope text-brand-accent dark:text-brand-oliveLight"></i>
+                            <a href="mailto:flourrybakery@gmail.com">flourrybakery@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="h-px w-full bg-gradient-to-r from-transparent via-gray-700 to-transparent mb-8"></div>
+
+            <div class="text-center flex flex-col md:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-gray-500">
+                <p>© 2026 مخبز فلوري. جميع الحقوق محفوظة.</p>
+                <p class="flex items-center gap-1.5">
+                   Made by VANT <i class="fa-solid fa-heart text-brand-accent dark:text-brand-oliveLight"></i>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/967784411559" target="_blank" aria-label="تواصل عبر واتساب" class="fixed bottom-6 right-6 z-40 w-14 h-14 sm:w-16 sm:h-16 bg-brand-olive text-white rounded-full flex items-center justify-center text-2xl sm:text-3xl shadow-2xl hover:scale-110 active:scale-95 transition-transform duration-300">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+</body>
+</html>

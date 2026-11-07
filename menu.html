@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة المنتجات | مخبز فلوري</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Readex Pro"', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            dark: '#121212', darker: '#0A0A0A', cardDark: '#1C1C1C',
+                            cream: '#fdfcf9', surface: '#f5f2eb', cardLight: '#ffffff',
+                            olive: '#3e4130', oliveLight: '#555942', accent: '#c88647', boxDark: '#111111'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Style.css">
+    <script src="Script.js" defer></script>
+</head>
+<body class="font-sans antialiased bg-brand-cream text-brand-olive dark:bg-brand-dark dark:text-brand-cream min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 bg-brand-cream/90 dark:bg-brand-dark/90 backdrop-blur-md border-b border-brand-surface dark:border-white/5" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo.png" alt="مخبز فلوري" class="h-12 sm:h-16 w-auto object-contain dark:brightness-0 dark:invert">
+            </a>
+            
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="text-sm font-semibold hover:text-brand-accent transition-colors">
+                    <i class="fa-solid fa-arrow-right ml-1"></i> العودة للرئيسية
+                </a>
+                <button id="theme-toggle" type="button" aria-label="تبديل المظهر" class="p-2.5 text-brand-olive dark:text-brand-cream bg-brand-surface dark:bg-brand-cardDark rounded-full hover:scale-105 active:scale-95 transition-all shadow-sm">
+                    <i id="theme-toggle-dark-icon" class="fa-solid fa-moon hidden"></i>
+                    <i id="theme-toggle-light-icon" class="fa-solid fa-sun hidden"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header & Search Section -->
+    <section class="pt-28 pb-8 px-6 bg-brand-surface dark:bg-brand-cardDark">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-3xl sm:text-5xl font-bold mb-4 text-brand-olive dark:text-white">قائمة <span class="text-brand-accent dark:text-brand-oliveLight">المخبوزات والحلويات</span></h1>
+            <p class="text-brand-oliveLight dark:text-gray-400 text-sm sm:text-base max-w-xl mx-auto mb-8">تصفح كامل منتجات مخبز فلوري بالأسعار مع إمكانية البحث والفلترة السريعة</p>
+            
+            <!-- Quick Search Bar -->
+            <div class="relative max-w-md mx-auto">
+                <input type="text" id="menu-search" placeholder="ابحث عن صنف (مثلاً: تشيز كيك، كرواسون...)" class="w-full pr-11 pl-4 py-3 rounded-full bg-white dark:bg-brand-dark border border-brand-olive/10 dark:border-white/10 text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent shadow-sm">
+                <i class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filters Navigation -->
+    <section class="sticky top-[60px] z-40 bg-brand-cream/95 dark:bg-brand-dark/95 backdrop-blur-md border-b border-brand-surface dark:border-white/5 py-4 px-4 overflow-x-auto">
+        <div class="max-w-7xl mx-auto flex items-center justify-start md:justify-center gap-2 min-w-max" id="category-filters">
+            <button class="filter-btn active-filter px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-brand-olive text-white" data-category="all">الكل</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-brand-surface dark:bg-brand-cardDark hover:bg-brand-olive/10" data-category="sandwiches">الساندويتشات</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-brand-surface dark:bg-brand-cardDark hover:bg-brand-olive/10" data-category="cakes">الكيك والكب كيك</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-brand-surface dark:bg-brand-cardDark hover:bg-brand-olive/10" data-category="pies">الفطائر والأقماع</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-brand-surface dark:bg-brand-cardDark hover:bg-brand-olive/10" data-category="mousse">الموس وتارت والتشيزكيك</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-brand-surface dark:bg-brand-cardDark hover:bg-brand-olive/10" data-category="sweets">الحلويات والشرقيات</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-brand-surface dark:bg-brand-cardDark hover:bg-brand-olive/10" data-category="pizza">بيتزا ومعجنات</button>
+            <button class="filter-btn px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all bg-brand-surface dark:bg-brand-cardDark hover:bg-brand-olive/10" data-category="buffet">البوفيه المفتوح</button>
+        </div>
+    </section>
+
+    <!-- Main Menu Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-12 flex-grow">
+        <div id="menu-items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic Content populated via JavaScript -->
+        </div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <a href="https://wa.me/967784411559" target="_blank" class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-brand-olive text-white rounded-full flex items-center justify-center text-2xl shadow-xl hover:scale-110 active:scale-95 transition-transform">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Full Menu Data Structuring
+        const menuData = [
+            {
+                category: 'sandwiches',
+                title: 'الساندويتشات',
+                icon: 'fa-burger',
+                items: [
+                    { name: 'سندويتش اجبان', price: '300 ريال' },
+                    { name: 'سندويتش جبن نوع واحد (كرافت - سائل - لبنه)', price: '200 ريال' },
+                    { name: 'سندويتش دجاج الفريدو', price: '500 ريال' },
+                    { name: 'سندويتش دجاج فلوري', price: '450 ريال' },
+                    { name: 'سندويتش دجاج فاهيتا', price: '450 ريال' },
+                    { name: 'سندويتش تونه', price: '400 ريال' },
+                    { name: 'سندويتش مارتدلا دجاج / لحم / سلامي', price: '450 ريال' },
+                    { name: 'سندويتش بيض مبخر مع الجبن', price: '350 ريال' },
+                    { name: 'سندويتش بيض مبخر مع الجبن ومرتدله', price: '400 ريال' },
+                    { name: 'ميني برجر (دجاج / لحم)', price: '550 ريال' }
+                ]
+            },
+            {
+                category: 'cakes',
+                title: 'الكيك والمافن',
+                icon: 'fa-cake-candles',
+                items: [
+                    { name: 'كب كيك شوكولاته', price: '250 ريال' },
+                    { name: 'كب كيك فانيله', price: '200 ريال' },
+                    { name: 'كب كيك كريمه', price: '350 ريال' },
+                    { name: 'مافن (لوتس / بلو بيري / شوكولاته دبل / فنييله)', price: '500 ريال' }
+                ]
+            },
+            {
+                category: 'pies',
+                title: 'الفطائر والأقماع',
+                icon: 'fa-bread-slice',
+                items: [
+                    { name: 'فطائر جبن وجزر', price: '200 ريال' },
+                    { name: 'فطائر جبن مالح وزعتر وزيت زيتون', price: '200 ريال' },
+                    { name: 'فطائر جبن سالم', price: '150 ريال' },
+                    { name: 'فطائر (دجاج / تونه / شوكولاته / دقه)', price: '300 ريال' },
+                    { name: 'فطائر جبن كرافت', price: '250 ريال' },
+                    { name: 'قمع جبن سائل', price: '350 ريال' },
+                    { name: 'قمع جبن كرافت', price: '400 ريال' },
+                    { name: 'قمع مشكل أجبان', price: '400 ريال' },
+                    { name: 'قمع جبن مالح مع الخيار والجزر', price: '300 ريال' },
+                    { name: 'قمع الشوكولاته', price: '450 ريال' }
+                ]
+            },
+            {
+                category: 'mousse',
+                title: 'الموس، التشيز كيك والتارت',
+                icon: 'fa-ice-cream',
+                items: [
+                    { name: 'موس كيك (مانجو / بستاشيو / شوكولاته / بلوبيري)', price: 'صغير: 300 | كبير: 600 ريال' },
+                    { name: 'تارت فواكة', price: '250 ريال' },
+                    { name: 'تارت شوكولاتة', price: '200 ريال' },
+                    { name: 'حلى طبقات', price: '350 ريال' },
+                    { name: 'تشيز كيك (لوتس / فريرو / رافيلو / بستاشيو / مانجو / مكس بيري)', price: 'صغير: 300 | وسط: 400 | كبير: 750 ريال' }
+                ]
+            },
+            {
+                category: 'sweets',
+                title: 'الحلويات والسلطات',
+                icon: 'fa-cookie',
+                items: [
+                    { name: 'البسبوسة (توفي / قشطة / حليب مكثف / شعيرية / بستاشيو)', price: '500 ريال' },
+                    { name: 'بسبوسة (شوكولاته / لوتس)', price: '550 ريال' },
+                    { name: 'بسبوسة (ملكي / مكسرات)', price: '600 ريال' },
+                    { name: 'سينامون / التراميسو', price: '400 ريال' },
+                    { name: 'كوكيز كلاسيك', price: '500 ريال' },
+                    { name: 'كوكيز دبل شوكلت', price: '600 ريال' },
+                    { name: 'زنود الست (الحبة)', price: '70 ريال' },
+                    { name: 'السلطات (روسية / فتوش / باذنجان)', price: 'صغير: 250 | كبير: 500 ريال' }
+                ]
+            },
+            {
+                category: 'pizza',
+                title: 'بيتزا ومعجنات',
+                icon: 'fa-pizza-slice',
+                items: [
+                    { name: 'بيتزا', price: '150 - 250 ريال' },
+                    { name: 'ورق عنب عادي', price: '150 ريال' },
+                    { name: 'ورق عنب دقه', price: '200 ريال' },
+                    { name: 'كرواسون (فلوري / كرافت / جبن مالح / شوكولاته)', price: '300 ريال' },
+                    { name: 'سمبوسه (جبن مالح / ابو ولد / كرافت / فلوري)', price: '150 ريال' },
+                    { name: 'سمبوسه دقه', price: '200 ريال' }
+                ]
+            },
+            {
+                category: 'buffet',
+                title: 'المشروبات والحلى',
+                icon: 'fa-champagne-glasses',
+                items: [
+                    { name: 'موهيتو (توت / خوخ / بطيخ / فراولة / عنب)', price: 'حسب الطلب' },
+                    { name: 'شراب التوت (كرتون 30 حبه)', price: '2400 ريال' },
+                    { name: 'ايس تي (خوخ / كركديه / تروبيكل)', price: 'حسب الطلب' },
+                    { name: 'القهوات الباردة والساخنة', price: 'حسب الطلب' },
+                    { name: 'تشكيلة الحلويات والسن سبستيان والجاتوهات', price: 'حسب الطلب' }
+                ]
+            }
+        ];
+
+        function renderMenu(categoryFilter = 'all', searchQuery = '') {
+            const grid = document.getElementById('menu-items-grid');
+            grid.innerHTML = '';
+
+            menuData.forEach(cat => {
+                if (categoryFilter !== 'all' && cat.category !== categoryFilter) return;
+
+                const filteredItems = cat.items.filter(item => 
+                    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+
+                if (filteredItems.length === 0) return;
+
+                const cardHtml = `
+                    <div class="bg-white dark:bg-brand-cardDark p-6 rounded-3xl shadow-luxury border border-brand-surface dark:border-white/5 transition-all">
+                        <div class="flex items-center gap-3 mb-6 border-b border-brand-surface dark:border-white/5 pb-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-surface dark:bg-brand-olive/20 text-brand-accent dark:text-brand-cream flex items-center justify-center text-lg">
+                                <i class="fa-solid ${cat.icon}"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-brand-olive dark:text-white">${cat.title}</h2>
+                        </div>
+                        <ul class="space-y-4">
+                            ${filteredItems.map(item => `
+                                <li class="flex justify-between items-center text-sm gap-2">
+                                    <span class="text-brand-olive dark:text-gray-200 font-medium">${item.name}</span>
+                                    <span class="text-brand-accent dark:text-brand-oliveLight font-bold whitespace-nowrap bg-brand-surface dark:bg-brand-dark px-2.5 py-1 rounded-lg text-xs">${item.price}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+
+            if(grid.innerHTML === '') {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-gray-400">لا توجد نتائج تطابق بحثك</div>`;
+            }
+        }
+
+        // Event Listeners
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.classList.remove('bg-brand-olive', 'text-white');
+                    b.classList.add('bg-brand-surface', 'dark:bg-brand-cardDark');
+                });
+                this.classList.add('bg-brand-olive', 'text-white');
+                this.classList.remove('bg-brand-surface', 'dark:bg-brand-cardDark');
+                
+                const cat = this.getAttribute('data-category');
+                const search = document.getElementById('menu-search').value;
+                renderMenu(cat, search);
+            });
+        });
+
+        document.getElementById('menu-search').addEventListener('input', function(e) {
+            const activeCat = document.querySelector('.filter-btn.bg-brand-olive').getAttribute('data-category');
+            renderMenu(activeCat, e.target.value);
+        });
+
+        // Initial Render
+        renderMenu();
+    </script>
+</body>
+</html>
