@@ -146,3 +146,32 @@ main{padding-top:110px}
   }
   .fl-visual-index small{font-size:11px;letter-spacing:0;white-space:nowrap;}
 }
+
+/* Light theme support for custom Flourry hero (the dark colors were previously hardcoded) */
+html:not(.dark) .fl-hero{
+  background:
+    radial-gradient(ellipse at 18% 35%,rgba(193,138,91,.18),transparent 36%),
+    linear-gradient(135deg,#f7eee3 0%,#fbf6ee 56%,#ead9c7 100%) !important;
+  color:#29231f !important;
+}
+html:not(.dark) .fl-hero:before{
+  background:linear-gradient(90deg,rgba(255,255,255,.18),transparent 65%),
+    repeating-linear-gradient(135deg,transparent 0 90px,rgba(91,64,46,.025) 91px 92px);
+}
+html:not(.dark) .fl-hero-copy h1{color:#29231f !important;}
+html:not(.dark) .fl-hero-copy h1 span{color:#a96f43 !important;text-shadow:0 8px 30px rgba(169,111,67,.12);}
+html:not(.dark) .fl-hero-copy>p{color:rgba(41,35,31,.72) !important;}
+html:not(.dark) .fl-eyebrow{color:#76503b;background:rgba(255,255,255,.55);border-color:rgba(118,80,59,.20);}
+html:not(.dark) .fl-hero-note{color:rgba(41,35,31,.58);}
+html:not(.dark) .fl-secondary-cta{color:#65442f;border-color:rgba(101,68,47,.28);background:rgba(255,255,255,.48);}
+html:not(.dark) .fl-secondary-cta:hover{color:#38271f;background:rgba(255,255,255,.82);border-color:rgba(169,111,67,.5);}
+html:not(.dark) .fl-hero-bottom-line{color:rgba(91,64,46,.48);}
+html:not(.dark) .fl-hero-orb{border-color:rgba(118,80,59,.16);}
+html:not(.dark) .fl-hero-orb-one{box-shadow:0 0 0 45px rgba(118,80,59,.025),0 0 0 90px rgba(118,80,59,.016);}
+html:not(.dark) .fl-visual-index{color:rgba(91,64,46,.62);}
+html:not(.dark) .fl-visual-index b{color:#a96f43;}
+html:not(.dark) .fl-visual-index span{background:rgba(169,111,67,.55);}
+html:not(.dark) .fl-visual-index{background:rgba(255,255,255,.55);border-color:rgba(118,80,59,.16);}
+/* The product photograph keeps its cinematic overlay in both themes for legible labels. */
+html:not(.dark) #navbar img[src*="logo"]{filter:none !important;}
+html:not(.dark) footer img[src*="logo"]{filter:none !important;}
